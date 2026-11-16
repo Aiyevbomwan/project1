@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destiny Clock — world time, calmly kept</title>
+<meta name="description" content="A world clock and calendar. Local time, cities around the world, and the shape of the year.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<div class="sky" id="sky" aria-hidden="true"></div>
+
+<header class="wrap bar">
+  <div class="mark"><b>Terra Clock</b><span>world time, calmly kept</span></div>
+  <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false">
+    <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.4v2.4M12 19.2v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.4 12h2.4M19.2 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke-linecap="round"/></svg>
+    <span id="themeLabel">Switch to light</span>
+  </button>
+</header>
+
+<main>
+  <!-- HERO ------------------------------------------------- -->
+  <div class="wrap hero">
+    <h1 class="sr-only">Terra Clock</h1>
+    <p class="hero-time num" id="heroTime" aria-hidden="true">
+      <span id="hHour">00</span><span class="colon">:</span><span id="hMin">00</span><span class="secs" id="hSec">00</span><span class="meridiem" id="hMer" hidden></span>
+    </p>
+    <p class="sr-only" id="heroSr" aria-live="off">Local time is loading.</p>
+    <p class="hero-date" id="heroDate">&nbsp;</p>
+    <p class="hero-place" id="heroPlace">&nbsp;</p>
+  </div>
+
+  <!-- CITIES ------------------------------------------------ -->
+  <section class="wrap" aria-labelledby="citiesH">
+    <div class="sec-head">
+      <div>
+        <h2 id="citiesH">Cities</h2>
+        <p>Drag a card to reorder it, or hold Alt and press the arrow keys.</p>
+      </div>
+
+      <div class="finder">
+        <label class="sr-only" for="cityInput">Add a city</label>
+        <div class="finder-field">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5" stroke-linecap="round"/></svg>
+          <input id="cityInput" type="text" placeholder="Add a city or country" autocomplete="off"
+                 role="combobox" aria-expanded="false" aria-controls="results" aria-autocomplete="list">
+        </div>
+        <ul class="results" id="results" role="listbox" aria-label="Matching cities" hidden></ul>
+      </div>
+    </div>
+
+    <ul class="grid" id="grid"></ul>
+    <p class="hint" id="hint"></p>
+  </section>
+
+  <!-- CALENDAR ---------------------------------------------- -->
+  <section class="wrap cal-section" aria-labelledby="calH">
+    <div class="sec-head">
+      <div>
+        <h2 id="calH">Calendar</h2>
+        <p>Weeks run Monday to Sunday, numbered to the ISO standard.</p>
+      </div>
+    </div>
+
+    <div class="cal-shell">
+      <div class="cal">
+        <div class="cal-bar">
+          <h3 class="cal-title" id="calTitle" aria-live="polite"></h3>
+          <button class="nav-btn" id="prevYear" type="button" aria-label="Previous year">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 5l-7 7 7 7M11 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="nav-btn" id="prevMonth" type="button" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <button class="today-btn" id="todayBtn" type="button">Today</button>
+          <button class="nav-btn" id="nextMonth" type="button" aria-label="Next month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button class="nav-btn" id="nextYear" type="button" aria-label="Next year">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5l7 7-7 7M13 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <table class="cal-grid">
+          <thead><tr id="calHead"></tr></thead>
+          <tbody id="calBody"></tbody>
+        </table>
+      </div>
+
+      <div class="detail" id="detail" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span>Times come from your device and the IANA timezone database. No network needed.</span>
+  <span id="tzFoot"></span>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
